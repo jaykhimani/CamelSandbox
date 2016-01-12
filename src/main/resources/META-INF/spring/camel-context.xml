@@ -21,11 +21,11 @@
     <property name="brokerURL" value="tcp://localhost:61616"/>
   </bean>
 
-  <bean id="normalizer" class="com.jak.sandbox.OrderNormalizer"/>
-  <bean id="orderHelper" class="com.jak.sandbox.OrderHelper"/>
+  <bean id="normalizer" class="com.jak.sandbox.camel.OrderNormalizer"/>
+  <bean id="orderHelper" class="com.jak.sandbox.camel.OrderHelper"/>
 
   <camelContext xmlns="http://activemq.apache.org/camel/schema/spring">
-    <package>com.jak.sandbox</package>
+    <package>com.jak.sandbox.camel</package>
   </camelContext>
 
 </beans>

@@ -1,4 +1,4 @@
-package com.jak.sandbox;
+package com.jak.sandbox.camel;
 
 import org.apache.activemq.util.IOHelper;
 import org.apache.camel.CamelContext;

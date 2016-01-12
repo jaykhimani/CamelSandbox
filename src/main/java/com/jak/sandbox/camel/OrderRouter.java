@@ -1,11 +1,16 @@
-package com.jak.sandbox;
+package com.jak.sandbox.camel;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.converter.jaxb.JaxbDataFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class OrderRouter extends RouteBuilder {
+    public static final Logger LOG = LoggerFactory.getLogger(OrderRouter.class);
+
     @Override
     public void configure() throws Exception {
+        LOG.info("Configuring");
         JaxbDataFormat jaxb = new JaxbDataFormat("com.jak.sandbox");
 
         // Receive orders from two end points

@@ -1,4 +1,4 @@
-package com.jak.sandbox;
+package com.jak.sandbox.camel;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

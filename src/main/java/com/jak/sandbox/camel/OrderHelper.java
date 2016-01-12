@@ -1,4 +1,4 @@
-package com.jak.sandbox;
+package com.jak.sandbox.camel;
 
 public class OrderHelper {
     public boolean isCsv(String body) {

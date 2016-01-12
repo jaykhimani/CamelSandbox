@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+  <!-- ============================== -->
+  <!-- Append messages to the console -->
+  <!-- ============================== -->
+  <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <!--<param name="ConversionPattern" value="%d %-5p %l %m%n"/>-->
+      <param name="ConversionPattern" value="%d [%30.30t] %-30.30c{1} %-5p %m%n"/>
+    </layout>
+  </appender>
+
+  <category name="org.springframework">
+    <priority value="WARN"/>
+  </category>
+
+<!--uncomment the following line to turn on Camel debugging-->
+<!--
+  <category name="org.apache.camel">
+    <priority value="DEBUG" />
+  </category>
+-->
+
+<!--uncomment the following line to turn on ActiveMQ debugging-->
+<!--
+  <category name="org.apache.activemq">
+    <priority value="DEBUG" />
+  </category>
+-->
+
+  <category name="com.jak.sandbox">
+    <priority value="INFO"/>
+  </category>
+  <root>
+    <priority value="INFO"/>
+    <appender-ref ref="CONSOLE"/>
+  </root>
+
+</log4j:configuration>
