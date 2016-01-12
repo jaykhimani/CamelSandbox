@@ -1,15 +1,17 @@
 package com.jak.sandbox.camel;
 
 import org.apache.activemq.util.IOHelper;
-import org.apache.camel.CamelContext;
-import org.apache.camel.ContextTestSupport;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.test.spring.CamelSpringTestSupport;
+import org.junit.Test;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
 
-import static org.apache.camel.spring.processor.SpringTestHelper.createSpringCamelContext;
+public class PlaceOrderTest extends CamelSpringTestSupport {
 
-public class PlaceOrderTest extends ContextTestSupport {
+    @Test
     public void testPlacingOrders() throws Exception {
         // Try placing two file orders
         MockEndpoint result = getMockEndpoint("mock:orders");
@@ -31,20 +33,18 @@ public class PlaceOrderTest extends ContextTestSupport {
         result.expectedMessageCount(1);
         result.expectedBodiesReceived(new Order("gearbox", 5));
 
-        String body = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                + "<order name=\"gearbox\" amount=\"5\"/>";
-        Object response = template.requestBody("http://localhost:8888/placeorder", body);
+        String body = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<order name=\"gearbox\" amount=\"5\"/>";
+        Object response = template.requestBody("jetty:http://localhost:8888/placeorder", body);
         // convert the response to a String
         String responseString = context.getTypeConverter().convertTo(String.class, response);
-        assertEquals("OK", responseString);
+        assertStringContains("OK", responseString);
 
         // ensure that the order got through to the mock endpoint
         result.assertIsSatisfied();
     }
 
     @Override
-    protected CamelContext createCamelContext() throws Exception {
-        return createSpringCamelContext(this, "META-INF/spring/camel-context.xml");
+    protected AbstractApplicationContext createApplicationContext() {
+        return new ClassPathXmlApplicationContext("META-INF/spring/camel-context.xml");
     }
-
 }

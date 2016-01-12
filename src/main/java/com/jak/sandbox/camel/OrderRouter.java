@@ -11,7 +11,7 @@ public class OrderRouter extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         LOG.info("Configuring");
-        JaxbDataFormat jaxb = new JaxbDataFormat("com.jak.sandbox");
+        JaxbDataFormat jaxb = new JaxbDataFormat("com.jak.sandbox.camel");
 
         // Receive orders from two end points
         String jmsIncomingOrderQueue = "jms:incomingOrderQueue";
@@ -23,7 +23,7 @@ public class OrderRouter extends RouteBuilder {
         String jmsOrderQueue = "jms:orderQueue";
         from(jmsIncomingOrderQueue).convertBodyTo(String.class).choice()
                 .when().method("orderHelper", "isXml").unmarshal(jaxb).to(jmsOrderQueue)
-                .when().method("orderHelper", "isCsv").unmarshal().csv().to("bean:normalizer").to(jmsOrderQueue);
+                .when().method("orderHelper", "isCsv").unmarshal().csv().to("bean:orderNormalizer").to(jmsOrderQueue);
 
     }
 }
